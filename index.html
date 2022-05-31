@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Growdle</title>
+    <link rel="icon" type="png" href="favicon.png">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <script src="main.js?6"></script>
+    
+    <div id="page-body">
+        <div id="header">
+            <span id="help-icon" class="material-icons">help_outline</span>
+            <div id="title">
+                <p>Growdle</p>
+            </div>
+            <span id="settings-icon" class="material-icons">settings</span>
+            <div id="stats-icon-wrap">
+                <svg id="stats-icon" xmlns="http://www.w3.org/2000/svg" id="statsIcon" viewBox="0 0 24 24"><defs><style>.cls-1{fill:#fff;}</style></defs><rect class="cls-1" x="0.5" y="12.5" width="5.86" height="11"/><path d="M353.86,320v10H349V320h4.86m1-1H348v12h6.86V319Z" transform="translate(-348 -307)"/><rect class="cls-1" x="9.07" y="0.5" width="5.86" height="23"/><path d="M362.43,308v22h-4.86V308h4.86m1-1h-6.86v24h6.86V307Z" transform="translate(-348 -307)"/><rect class="cls-1" x="17.64" y="6.5" width="5.86" height="17"/><path d="M371,314v16h-4.86V314H371m1-1h-6.86v18H372V313Z" transform="translate(-348 -307)"/></svg>
+            </div>
+        </div>
+        <div id="game-wrap">
+            <div id="how-to-play-overlay" class="hide">
+                <div id="how-to-play-title-bar">
+                    <h2 id="how-to-play-title">How To Play</h2>
+                    <div id="close-button-wrap">
+                        <button id="how-to-play-close-button" class="close-button">
+                            <svg id="close-button-svg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                                <path id="close-button-path" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="how-to-play">
+                    <p>It's <a href="https://www.nytimes.com/games/wordle/index.html" style="text-decoration: underline;" target="_blank">Wordle</a>, but the word grows two times.</p>
+                    <br>
+                    <p>You start with a three letter word, then go to a five letter word, then end with a seven letter word.</p>
+                    <br>
+                    <p>The letters from each word will carry over to the next.</p>
+                    <br>
+                    <p id="last-rules-line">If a word has two of the same letter, the following word(s) will not necessarily contain both!</p>
+                    <br>
+                    <p>Examples:</p>
+                    <div id="tile-examples">
+                        <div id="wrong-example">
+                            <div class="letter wrong">B</div>
+                            <p>The letter B is not in the word.</p>
+                        </div>
+                        <br>
+                        <div id="sorta-example">
+                            <div class="letter sorta">E</div>
+                            <p>The letter E is in the word, but not in the right place.</p>
+                        </div>
+                        <br>
+                        <div id="right-example">
+                            <div class="letter right">D</div>
+                            <p>The letter D is in the word and in the right place.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="results-overlay" class="hide">
+                <div id="results">
+                    <div id="results-title-bar">
+                        <p id="resultsTitle">Statistics</p>
+                        <div id="close-button-wrap">
+                            <button id="results-close-button" class="close-button">
+                                <svg id="close-button-svg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                                    <path id="close-button-path" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="stats">
+                        <div id="games-played">
+                            <p>Games</p>
+                            <p>played</p>
+                            <p id="games-played-number"></p>
+                        </div>
+                        <div id="word-stats">
+                            <div id="winPercent3">
+                                <p>3 Letter Words</p>
+                                <div class="win-percent-divider">
+                                    <div id="three-letter-win-count">
+                                        <p>Number Correct:</p>
+                                        <p id="three-letter-win-count-number"></p>
+                                    </div>
+                                    <div id="three-letter-win-percentage">
+                                        <p>Win Percentage:</p>
+                                        <p id="three-letter-win-percent"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="winPercent5">
+                                <p>5 Letter Words</p>
+                                <div class="win-percent-divider">
+                                    <div id="five-letter-win-count">
+                                        <p>Number Correct:</p>
+                                        <p id="five-letter-win-count-number"></p>
+                                    </div>
+                                    <div id="five-letter-win-percentage">
+                                        <p>Win Percentage:</p>
+                                        <p id="five-letter-win-percent"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="winPercent7">
+                                <p>7 Letter Words</p>
+                                <div class="win-percent-divider">
+                                    <div id="seven-letter-win-count">
+                                        <p>Number Correct:</p>
+                                        <p id="seven-letter-win-count-number"></p>
+                                    </div>
+                                    <div id="seven-letter-win-percentage">
+                                        <p>Win Percentage:</p>
+                                        <p id="seven-letter-win-percent"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="social" class="hide">
+                        <div id="timer"><p>Next puzzle: </p><p id="timeout-counter"></p></div>
+                        <div id="share">
+                            <button id="share-button">share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="settings-overlay" class="hide">
+                <div id="settings">
+                    <div id="settings-title-bar">
+                        <p id="settings-title">Settings</p>
+                        <div id="close-button-wrap">
+                            <button id="settings-close-button" class="close-button">
+                                <svg id="close-button-svg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                                    <path id="close-button-path" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="settings-option" id="hard-mode-wrap">
+                        <div id="hard-mode-text-wrap">
+                            <p>Hard Mode* (Subject to Change)</p>
+                            <p class="smaller-text">*All revealed letters must be used in future guesses</p>
+                        </div>
+                        <label id="hard-mode" class="switch">
+                            <input id="hard-mode-checkbox" name="hard-mode-checkbox" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option" id="light-mode-wrap">
+                        <p>Light Mode</p>
+                        <label id="light-mode" class="switch">
+                            <input id="light-mode-checkbox" name="light-mode-checkbox" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option" id="high-contrast-wrap">
+                        <p>High Contrast Mode</p>
+                        <label id="high-contrast" class="switch">
+                            <input id="high-contrast-checkbox" name="high-contrast-checkbox" type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option" id="feedback-wrap">
+                        <p>Feedback:</p>
+                        <a href="mailto:kianshirvan@gmail.com">kianshirvan@gmail.com</a>
+                    </div>
+                    <div id="footer">
+                        <p id="copyright"></p>
+                        <p id="game-number"></p>
+                    </div>
+                </div>
+            </div>
+            <div id="game-board-wrap">
+                <div id="game-board">
+                </div>
+            </div>
+            <div id="keyboard">
+                <div class="row">
+                    <button class="keebButton" data-key="q">q</button>
+                    <button class="keebButton" data-key="w">w</button>
+                    <button class="keebButton" data-key="e">e</button>
+                    <button class="keebButton" data-key="r">r</button>
+                    <button class="keebButton" data-key="t">t</button>
+                    <button class="keebButton" data-key="y">y</button>
+                    <button class="keebButton" data-key="u">u</button>
+                    <button class="keebButton" data-key="i">i</button>
+                    <button class="keebButton" data-key="o">o</button>
+                    <button class="keebButton" data-key="p">p</button>
+                </div>
+                <div class="row">
+                    <div class="key-spacer"></div>
+                    <button class="keebButton" data-key="a">a</button>
+                    <button class="keebButton" data-key="s">s</button>
+                    <button class="keebButton" data-key="d">d</button>
+                    <button class="keebButton" data-key="f">f</button>
+                    <button class="keebButton" data-key="g">g</button>
+                    <button class="keebButton" data-key="h">h</button>
+                    <button class="keebButton" data-key="j">j</button>
+                    <button class="keebButton" data-key="k">k</button>
+                    <button class="keebButton" data-key="l">l</button>
+                    <div class="key-spacer"></div>
+                </div>
+                <div class="row">
+                    <button class="big keebButton" data-key="↵">enter</button>
+                    <button class="keebButton" data-key="z">z</button>
+                    <button class="keebButton" data-key="x">x</button>
+                    <button class="keebButton" data-key="c">c</button>
+                    <button class="keebButton" data-key="v">v</button>
+                    <button class="keebButton" data-key="b">b</button>
+                    <button class="keebButton" data-key="n">n</button>
+                    <button class="keebButton" data-key="m">m</button>
+                    <button class="big keebButton" data-key="del">DEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
